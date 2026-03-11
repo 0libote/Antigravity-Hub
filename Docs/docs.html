@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - Antigravity Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <style>
+        .docs-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            max-width: 1300px;
+            margin: 0 auto;
+            gap: 64px;
+            padding: 120px 32px 64px;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 120px;
+            height: calc(100vh - 160px);
+            overflow-y: auto;
+            padding-right: 12px;
+            scrollbar-width: none;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .sidebar h4 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            margin-top: 32px;
+            font-weight: 600;
+        }
+
+        .sidebar h4:first-child {
+            margin-top: 0;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px 16px;
+            color: var(--text-secondary);
+            font-size: 15px;
+            border-radius: 12px;
+            margin-bottom: 4px;
+            transition: var(--transition);
+        }
+
+        .sidebar a:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .sidebar a.active {
+            background: rgba(66, 133, 244, 0.1);
+            color: #93c5fd;
+            font-weight: 500;
+        }
+
+        .content {
+            padding-bottom: 120px;
+            max-width: 800px;
+        }
+
+        .content h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            margin-bottom: 32px;
+            background: none;
+            -webkit-text-fill-color: initial;
+            color: var(--text-primary);
+        }
+
+        .content h2 {
+            font-size: 28px;
+            margin-top: 64px;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .content h3 {
+            font-size: 20px;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .content p {
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .content ul {
+            margin-bottom: 24px;
+            padding-left: 20px;
+            color: var(--text-secondary);
+        }
+
+        .content li {
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        code {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 14px;
+            color: #93c5fd;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        pre {
+            background: #0d1117;
+            padding: 24px;
+            border-radius: 16px;
+            overflow-x: auto;
+            margin: 32px 0;
+            border: 1px solid var(--border-subtle);
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: #e6edf3;
+            border: none;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .alert {
+            background: rgba(66, 133, 244, 0.05);
+            border: 1px solid rgba(66, 133, 244, 0.2);
+            padding: 20px 24px;
+            border-radius: 16px;
+            margin: 40px 0;
+            display: flex;
+            gap: 16px;
+        }
+
+        .alert p {
+            margin: 0;
+            color: #bfdbfe;
+            font-size: 15px;
+        }
+
+        .alert strong {
+            color: #fff;
+        }
+
+        @media (max-width: 1024px) {
+            .docs-layout {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .sidebar {
+                position: static;
+                height: auto;
+                padding-bottom: 32px;
+                border-bottom: 1px solid var(--border-subtle);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 🌌 Antigravity Website Background 🌌 -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-glow">
+        <div class="glow-top-left"></div>
+        <div class="glow-bottom-right"></div>
+    </div>
+    <div class="noise-overlay"></div>
+
+    <header class="top-nav">
+        <div class="nav-container">
+            <div class="logo-area">
+                <img src="icon.svg" alt="Antigravity Hub Icon" class="nav-icon">
+                <a href="index.html" class="nav-title" style="color: white; text-decoration: none;">Antigravity Hub</a>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="https://github.com/0libote/AntiGravity-Hub" target="_blank"
+                    class="nav-link primary-cta">Download for VS Code</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="docs-layout">
+        <aside class="sidebar">
+            <h4>Getting Started</h4>
+            <a href="#introduction" class="active">Introduction</a>
+            <a href="#installation">Installation</a>
+
+            <h4>Configuration</h4>
+            <a href="#settings">Extension Settings</a>
+            <a href="#ui-styles">Dashboard Styles</a>
+
+            <h4>Troubleshooting</h4>
+            <a href="#faq">FAQ</a>
+        </aside>
+
+        <article class="content">
+            <h1 id="introduction">Documentation</h1>
+            <p>Welcome to the official documentation for Antigravity Hub, the premium local-only UI extension for
+                tracking your AI usage natively in VS Code.</p>
+
+            <div class="alert">
+                <p><strong>Note:</strong> Antigravity Hub is a frontend UI. It requires the base Antigravity extension
+                    to be active to fetch real quota data.</p>
+            </div>
+
+            <h2 id="installation">Installation</h2>
+            <p>You can install Antigravity Hub directly from the VS Code Marketplace or build it from source.</p>
+
+            <h3>From Source</h3>
+            <pre><code>git clone https://github.com/0libote/AntiGravity-Hub.git
+cd AntiGravity-Hub
+npm install
+npm run compile
+# Press F5 in VS Code to run in Extension Development Host</code></pre>
+
+            <h2 id="settings">Extension Settings</h2>
+            <p>Antigravity Hub is highly configurable via VS Code Settings or through the in-dashboard UI modal.</p>
+            <ul>
+                <li><code>antigravityHub.pollInterval</code>: Time in ms between local API checks (Default: 500ms).</li>
+                <li><code>antigravityHub.statusBarFormat</code>: Choose between Standard, Compact, Minimal, or
+                    Percentage.</li>
+                <li><code>antigravityHub.warningThreshold</code>: When to turn visual indicators yellow (Default: 60%).
+                </li>
+                <li><code>antigravityHub.criticalThreshold</code>: When to turn visual indicators red and send alerts
+                    (Default: 20%).</li>
+            </ul>
+
+            <h2 id="ui-styles">Dashboard Styles</h2>
+            <p>The main webview supports multiple layouts depending on how much detail you want.</p>
+            <ul>
+                <li><strong>Group: Circular Gauges</strong> - Beautiful grouped donut charts representing time
+                    remaining.</li>
+                <li><strong>Group: Line Graphs</strong> - Clean, horizontal progress bars.</li>
+                <li><strong>Models (Grouped)</strong> - See individual models nested under their parent groups.</li>
+                <li><strong>Models (Flat)</strong> - A dense grid of every model currently tracked.</li>
+            </ul>
+
+            <h2 id="faq">FAQ</h2>
+            <h3>Why isn't my quota updating?</h3>
+            <p>Make sure the base Antigravity proxy is running. If the Hub shows a red disconnected status in the top
+                right, it means the local fetcher cannot connect to the backend.</p>
+
+            <h2 id="settings">Extension Settings</h2>
+            <p>Antigravity Hub is highly configurable via VS Code Settings or through the in-dashboard UI modal.</p>
+            <ul>
+                <li><code>antigravityHub.pollInterval</code>: Time in ms between local API checks (Default: 500ms).</li>
+                <li><code>antigravityHub.statusBarFormat</code>: Choose between Standard, Compact, Minimal, or
+                    Percentage.</li>
+                <li><code>antigravityHub.warningThreshold</code>: When to turn visual indicators yellow (Default: 60%).
+                </li>
+                <li><code>antigravityHub.criticalThreshold</code>: When to turn visual indicators red and send alerts
+                    (Default: 20%).</li>
+            </ul>
+
+            <h2 id="ui-styles">Dashboard Styles</h2>
+            <p>The main webview supports multiple layouts depending on how much detail you want.</p>
+            <ul>
+                <li><strong>Group: Circular Gauges</strong> - Beautiful grouped donut charts representing time
+                    remaining.</li>
+                <li><strong>Group: Line Graphs</strong> - Clean, horizontal progress bars.</li>
+                <li><strong>Models (Grouped)</strong> - See individual models nested under their parent groups.</li>
+                <li><strong>Models (Flat)</strong> - A dense grid of every model currently tracked.</li>
+            </ul>
+
+            <h2 id="faq">FAQ</h2>
+            <h3>Why isn't my quota updating?</h3>
+            <p>Make sure the base Antigravity proxy is running. If the Hub shows a red disconnected status in the top
+                right, it means the local fetcher cannot connect to the backend.</p>
+
+            <h3>How is my data handled?</h3>
+            <p>Everything is completely local. The tracker monitors your local proxy traffic solely to display these UI
+                elements. No data is sent to external servers.</p>
+        </article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content"
+            style="max-width: 1200px; margin: 0 auto; text-align: center; color: var(--text-secondary); font-size: 14px;">
+            Antigravity Hub &copy; 2026
+        </div>
+    </footer>
+</body>
+
+</html>
+```

@@ -1,0 +1,70 @@
+name: Beta Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Compile extension
+      run: npm run compile
+
+    - name: Package extension
+    # Package as VSIX without bundled dependencies unless necessary
+      run: npx vsce package --no-dependencies
+
+    - name: Prepare Release Variables
+      shell: bash
+      run: |
+        echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        echo "BUILD_DATE=$(date -u +'%b %d, %Y %H:%M UTC')" >> $GITHUB_ENV
+        # Find the generated vsix file
+        VSIX_FILE=$(ls *.vsix | head -n 1)
+        echo "VSIX_FILE=$VSIX_FILE" >> $GITHUB_ENV
+
+    - name: Cleanup Old Beta Release
+      if: github.ref == 'refs/heads/main'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      shell: bash
+      run: |
+        echo "Deleting previous beta release if it exists..."
+        gh release delete "beta-latest" --cleanup-tag -y || true
+
+    - name: Create Beta Release
+      if: github.ref == 'refs/heads/main'
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: beta-latest
+        name: "Development build"
+        body: |
+          This is an automatically generated in-development pre-release version of the extension, that includes the latest main branch changes.
+          ⚠️ **This build is not stable and may contain bugs.** ⚠️
+          Use at your own risk.
+
+          - Last build date: `${{ env.BUILD_DATE }}`
+          - Reference commit: [`${{ env.SHORT_SHA }}`](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
+        prerelease: true
+        files: ${{ env.VSIX_FILE }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

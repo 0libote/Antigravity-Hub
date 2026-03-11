@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity Hub - Local AI Quota Tracker</title>
+    <meta name="description"
+        content="A premium, local-only AI quota and usage tracker for Antigravity with intelligent grouping and a customizable dashboard.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+</head>
+
+<body>
+    <!-- 🌌 Antigravity Website Background 🌌 -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-glow">
+        <div class="glow-top-left"></div>
+        <div class="glow-bottom-right"></div>
+    </div>
+    <div class="noise-overlay"></div>
+
+    <header class="top-nav">
+        <div class="nav-container">
+            <div class="logo-area">
+                <img src="icon.svg" alt="Antigravity Hub Icon" class="nav-icon">
+                <span class="nav-title">Antigravity Hub</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="docs.html" class="nav-link">Documentation</a>
+                <a href="https://github.com/0libote/AntiGravity-Hub" target="_blank"
+                    class="nav-link primary-cta">Download for VS Code</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="badge">Open Source VS Code Extension</div>
+                <h1 class="hero-title">Your Local Quota. <br>Beautifully Visualized.</h1>
+                <p class="hero-subtitle">
+                    A premium, local-only AI usage tracker for Antigravity. Completely custom, completely
+                    private, and stunningly designed to match your IDE.
+                </p>
+                <div class="hero-actions">
+                    <a href="docs.html" class="btn btn-primary">Get Started</a>
+                    <a href="#demo" class="btn btn-secondary" onclick="smoothScrollTo(event, 'demo')">See it in
+                        action</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ FEATURES (before demo) ═══ -->
+        <section id="features" class="features">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>100% Local</h3>
+                    <p>No external APIs, no analytics. Intercepts local proxy traffic to keep your quota data completely
+                        private on your machine.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3>Premium Design</h3>
+                    <p>Drop-dead gorgeous UI matching the Antigravity aesthetic. Smooth animations, custom scrollbars,
+                        and flawless dark mode.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Smart Grouping</h3>
+                    <p>Intelligently groups models by family (Claude, Gemini Pro, etc.) to give you an at-a-glance
+                        overview of your available resources.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ FULL-VIEWPORT DEMO ═══ -->
+        <section id="demo" class="demo-section">
+            <div class="browser-mockup">
+
+                <!-- Title Bar -->
+                <div class="browser-header">
+                    <div class="browser-dots"><span></span><span></span><span></span></div>
+                    <div class="browser-title">
+                        <img src="icon.svg" style="width:14px; height:14px; opacity:0.6; vertical-align: middle;">
+                        Antigravity Hub — Dashboard
+                    </div>
+                    <div class="title-bar-spacer"></div>
+                </div>
+
+                <!-- IDE Body -->
+                <div class="ide-shell">
+
+                    <!-- Activity Bar -->
+                    <div class="ide-activity-bar">
+                        <div class="activity-top">
+                            <div class="activity-icon active" title="Explorer">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                            </div>
+                            <div class="activity-icon" title="Search">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                            </div>
+                            <div class="activity-icon" title="Antigravity Hub">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5">
+                                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                    <polyline points="2 17 12 22 22 17"></polyline>
+                                    <polyline points="2 12 12 17 22 12"></polyline>
+                                </svg>
+                            </div>
+                            <div class="activity-icon" title="Extensions">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5">
+                                    <rect x="3" y="3" width="7" height="7"></rect>
+                                    <rect x="14" y="3" width="7" height="7"></rect>
+                                    <rect x="3" y="14" width="7" height="7"></rect>
+                                    <rect x="14" y="14" width="7" height="7"></rect>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="activity-bottom">
+                            <div class="activity-icon" title="Settings">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5">
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                    <path
+                                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15 1.65 1.65 0 0 0 3 14.09V14a2 2 0 0 1 0-4v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82V7a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar: File Explorer -->
+                    <div class="ide-sidebar">
+                        <div class="sidebar-header">EXPLORER</div>
+
+                        <!-- Project root -->
+                        <div class="file-tree">
+                            <div class="tree-folder open" onclick="toggleFolder(this)">
+                                <svg class="tree-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                                <svg class="tree-folder-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.5">
+                                    <path
+                                        d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                    </path>
+                                </svg>
+                                <span>dog-pics-app</span>
+                            </div>
+                            <div class="tree-children">
+                                <div class="tree-file active" onclick="selectFile(this)">
+                                    <span class="file-icon html">&lt;&gt;</span>
+                                    <span>index.html</span>
+                                </div>
+                                <div class="tree-file" onclick="selectFile(this)">
+                                    <span class="file-icon css">CSS</span>
+                                    <span>style.css</span>
+                                </div>
+                                <div class="tree-file" onclick="selectFile(this)">
+                                    <span class="file-icon js">JS</span>
+                                    <span>app.js</span>
+                                </div>
+                                <div class="tree-file" onclick="selectFile(this)">
+                                    <span class="file-icon js">JS</span>
+                                    <span>api.js</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Editor Area -->
+                    <div class="ide-editor-area">
+                        <div class="split-pane-container">
+                            <!-- Left Pane: Fake Code Editor -->
+                            <div class="pane-left">
+                                <div class="editor-tabs">
+                                    <div class="editor-tab active" style="min-width: 140px;">
+                                        <span class="file-icon html" id="mock-file-icon"
+                                            style="margin-left:0; margin-right:6px;">&lt;&gt;</span>
+                                        <span id="mock-filename">index.html</span>
+                                        <span class="tab-close">×</span>
+                                    </div>
+                                    <div class="editor-tab-filler"></div>
+                                </div>
+                                <div class="mock-code" id="mock-code-container">
+                                    <div class="mock-code-lines" id="mock-code-lines">
+                                        1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
+                                    </div>
+                                    <div class="mock-code-content" id="mock-code-editor">
+                                        &lt;<span class="keyword">!DOCTYPE html</span>&gt;<br>
+                                        &lt;<span class="class">html</span> <span class="string">lang</span>=<span
+                                            class="string">"en"</span>&gt;<br>
+                                        &lt;<span class="class">head</span>&gt;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="class">title</span>&gt;<span
+                                            class="string">Random Dog Pics</span>&lt;/<span
+                                            class="class">title</span>&gt;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="class">link</span> <span
+                                            class="string">rel</span>=<span class="string">"stylesheet"</span> <span
+                                            class="string">href</span>=<span class="string">"style.css"</span>&gt;<br>
+                                        &lt;/<span class="class">head</span>&gt;<br>
+                                        &lt;<span class="class">body</span>&gt;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="class">h1</span>&gt;<span
+                                            class="string">Bark!</span>&lt;/<span class="class">h1</span>&gt;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="class">img</span> <span
+                                            class="string">id</span>=<span class="string">"dog-pic"</span> /&gt;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="class">script</span> <span
+                                            class="string">src</span>=<span class="string">"app.js"</span>&gt;&lt;/<span
+                                            class="class">script</span>&gt;<br>
+                                        &lt;/<span class="class">body</span>&gt;<br>
+                                        &lt;/<span class="class">html</span>&gt;
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Pane: Dashboard -->
+                            <div class="pane-right">
+                                <div class="editor-tabs">
+                                    <div class="editor-tab active"
+                                        style="min-width: 160px; border-top-color: var(--accent);">
+                                        <img src="icon.svg" style="width:14px; height:14px; margin-right:6px;">
+                                        <span>Antigravity - Task</span>
+                                        <span class="tab-close">×</span>
+                                    </div>
+                                    <div class="editor-tab-filler"></div>
+                                </div>
+
+                                <!-- Extension Webview -->
+                                <div class="editor-body">
+                                    <div class="ext-header">
+                                        <div class="ext-header-title">
+                                            <img src="icon.svg" alt="Icon" style="width:24px; height:24px;">
+                                            <span>Antigravity Hub</span>
+                                        </div>
+                                        <div class="ext-controls">
+                                            <button class="icon-btn" onclick="openSettings()">⚙ Settings</button>
+                                        </div>
+                                    </div>
+                                    <div id="dashboard">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Bar -->
+                <div class="ide-status-bar">
+                    <div class="status-bar-left">
+                        <a class="sb-pill sb-remote" title="Remote connection">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3">
+                                </path>
+                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                            </svg>
+                        </a>
+                        <a class="sb-pill sb-branch" title="main (Git)">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="6" y1="3" x2="6" y2="15"></line>
+                                <circle cx="18" cy="6" r="3"></circle>
+                                <circle cx="6" cy="18" r="3"></circle>
+                                <path d="M18 9a9 9 0 0 1-9 9"></path>
+                            </svg>
+                            <span>main</span>
+                        </a>
+                        <a class="sb-pill" title="0 Errors, 0 Warnings">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                            </svg>
+                            <span>0</span>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" style="margin-left: 4px;">
+                                <path
+                                    d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                                </path>
+                                <line x1="12" y1="9" x2="12" y2="13"></line>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                            <span>0</span>
+                        </a>
+                    </div>
+                    <div class="status-bar-right">
+                        <div class="sb-hover-container">
+                            <a class="sb-pill sb-antigravity" title="Antigravity Hub Status">
+                                <span>🚀 Antigravity Hub Status</span>
+                            </a>
+                            <!-- The Hover Popup -->
+                            <div class="sb-hover-popup" id="sb-hover-popup">
+                                <!-- Populated dynamically by app.js -->
+                            </div>
+                        </div>
+                        <a class="sb-pill" id="sb-quota-summary" title="Quota Summary">Claude: 100% | Gemini Pro: 100% |
+                            Gemini Flash: 100%</a>
+                        <a class="sb-pill" title="Settings">
+                            <span class="status-dot-live small" style="margin-right: -2px;"></span>
+                            Antigravity - Settings
+                        </a>
+                        <a class="sb-pill" title="Notifications">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Settings Modal (Moved inside browser mockup for exact bounds constraint) -->
+                <div id="settings-modal" class="modal" onclick="if(event.target === this) closeSettings()">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="modal-header-row">
+                                <h3>Preferences</h3>
+                                <span class="close-btn" onclick="closeSettings()">&times;</span>
+                            </div>
+                            <div class="settings-group">
+                                <span class="settings-group-title">General</span>
+                                <div style="display:flex; flex-direction:column; gap:10px;">
+                                    <div style="margin-bottom:15px;">
+                                        <label class="setting-label">Dashboard Display Style</label>
+                                        <div class="custom-select" id="dashboard-style-wrapper">
+                                            <input type="hidden" id="dashboard-display-style" value="group-circle">
+                                            <div class="select-selected">Group: Circular Gauges</div>
+                                            <div class="select-items select-hide">
+                                                <div data-value="group-circle">Group: Circular Gauges</div>
+                                                <div data-value="group-line">Group: Line Graphs</div>
+                                                <div data-value="models-in-groups">Models (Grouped)</div>
+                                                <div data-value="models-only">Models (Flat List)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <label class="checkbox-label" style="flex:1;">
+                                            <input type="checkbox" id="notifications-enabled" checked>
+                                            <div>
+                                                <span class="checkbox-text">Critical Alerts</span>
+                                                <span class="checkbox-desc">Notify when quota drops below
+                                                    threshold</span>
+                                            </div>
+                                        </label>
+                                        <button class="icon-btn"
+                                            onclick="alert('🚨 Test: Simulated quota is critically low!')"
+                                            style="font-size:11px; padding:6px 10px;">Test Alert</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="settings-group">
+                                <span class="settings-group-title">Visible Providers</span>
+                                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                                    <label class="checkbox-label"><input type="checkbox" class="group-toggle"
+                                            value="claude" checked> <span class="checkbox-text">Claude</span></label>
+                                    <label class="checkbox-label"><input type="checkbox" class="group-toggle"
+                                            value="gemini_pro" checked> <span class="checkbox-text">Gemini
+                                            Pro</span></label>
+                                    <label class="checkbox-label"><input type="checkbox" class="group-toggle"
+                                            value="gemini_flash" checked> <span class="checkbox-text">Gemini
+                                            Flash</span></label>
+                                    <label class="checkbox-label"><input type="checkbox" class="group-toggle"
+                                            value="gemini_image" checked> <span class="checkbox-text">Gemini
+                                            Image</span></label>
+                                    <label class="checkbox-label" style="grid-column:1/-1;"><input type="checkbox"
+                                            class="group-toggle" value="other" checked> <span
+                                            class="checkbox-text">Other
+                                            Models</span></label>
+                                </div>
+                            </div>
+                            <div class="settings-group" style="margin-bottom:25px;">
+                                <span class="settings-group-title">Thresholds</span>
+                                <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+                                    <div>
+                                        <label class="setting-label" style="color:var(--warning);">Warning Level
+                                            (%)</label>
+                                        <input type="number" id="warning-threshold" value="60">
+                                    </div>
+                                    <div>
+                                        <label class="setting-label" style="color:var(--danger);">Critical Level
+                                            (%)</label>
+                                        <input type="number" id="critical-threshold" value="20">
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display:flex; gap:12px;">
+                                <button class="icon-btn" style="flex:1; justify-content:center;"
+                                    onclick="resetSettings()">Reset</button>
+                                <button class="icon-btn primary" style="flex:2; justify-content:center;"
+                                    onclick="saveSettings()">Save Configuration</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-caption">
+                <p>Live interactive preview — the actual Antigravity Hub extension running in a simulated IDE.
+                    Click sidebar files and settings to explore.</p>
+            </div>
+        </section>
+    </main>
+
+
+
+    <script src="app.js"></script>
+</body>
+
+</html>

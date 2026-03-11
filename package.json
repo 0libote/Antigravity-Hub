@@ -1,0 +1,113 @@
+{
+  "name": "antigravity-hub",
+  "displayName": "Antigravity Hub",
+  "description": "A premium, local-only AI quota and usage tracker for Antigravity with intelligent grouping and customizable status bar.",
+  "version": "1.0.0",
+  "icon": "media/icon.png",
+  "publisher": "0libote",
+  "author": "0libote",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0libote/AntiGravity-Hub.git"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "antigravityHub.openDashboard",
+        "title": "Antigravity Hub: Open Dashboard"
+      },
+      {
+        "command": "antigravityHub.showDiagnostics",
+        "title": "Antigravity Hub: Show Diagnostics"
+      }
+    ],
+    "configuration": {
+      "title": "Antigravity Hub",
+      "properties": {
+        "antigravityHub.pollInterval": {
+          "type": "number",
+          "default": 500,
+          "description": "Interval (ms) to poll local AntiGravity usage API."
+        },
+        "antigravityHub.statusBarFormat": {
+          "type": "string",
+          "enum": [
+            "standard",
+            "compact",
+            "icon",
+            "percent"
+          ],
+          "default": "standard",
+          "description": "Style of the status bar item."
+        },
+        "antigravityHub.warningThreshold": {
+          "type": "number",
+          "default": 60,
+          "description": "Percentage threshold below which models show a yellow warning."
+        },
+        "antigravityHub.criticalThreshold": {
+          "type": "number",
+          "default": 20,
+          "description": "Percentage threshold below which models show a red danger alert."
+        },
+        "antigravityHub.visibleGroups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "claude",
+            "gemini_pro",
+            "gemini_flash",
+            "gemini_image",
+            "other"
+          ],
+          "description": "List of group IDs to display as pills in the status bar."
+        },
+        "antigravityHub.dashboardDisplayStyle": {
+          "type": "string",
+          "enum": [
+            "group-circle",
+            "group-line",
+            "models-in-groups",
+            "models-only"
+          ],
+          "default": "group-circle",
+          "description": "Visual style for displaying quota in the dashboard."
+        },
+        "antigravityHub.notificationsEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show desktop notifications when quota reaches critical thresholds."
+        },
+        "antigravityHub.groupingEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show grouped cards vs individual model cards in the dashboard."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "lint": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.20.0",
+    "sharp": "^0.34.5",
+    "typescript": "^5.3.0"
+  }
+}
