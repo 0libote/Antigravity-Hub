@@ -18,7 +18,7 @@ const openDashboard = async (extensionUri: vscode.Uri): Promise<void> => {
     panel.updateUsage(lastSnapshot);
 };
 
-const notifiedModels = new Set<string>();
+const notifiedCategories = new Set<string>();
 
 const onUsagePoll = async (snapshot: UsageSnapshot | null): Promise<void> => {
     if (snapshot && lastSnapshot) {
@@ -26,14 +26,28 @@ const onUsagePoll = async (snapshot: UsageSnapshot | null): Promise<void> => {
         const criticalThreshold = config.get<number>('criticalThreshold') || 5;
         const notificationsEnabled = config.get<boolean>('notificationsEnabled') !== false;
 
+        const categorizedModels: Record<string, typeof snapshot.models> = {};
         for (const model of snapshot.models) {
-            if (notificationsEnabled && model.remainingPercentage <= criticalThreshold) {
-                if (!notifiedModels.has(model.id)) {
-                    vscode.window.showWarningMessage(`🚀 Antigravity Alert: ${model.label} is at ${model.remainingPercentage}% quota!`);
-                    notifiedModels.add(model.id);
+            if (!categorizedModels[model.quotaGroup]) {
+                categorizedModels[model.quotaGroup] = [];
+            }
+            categorizedModels[model.quotaGroup].push(model);
+        }
+
+        if (notificationsEnabled) {
+            for (const [category, models] of Object.entries(categorizedModels)) {
+                const anyLow = models.some(m => m.remainingPercentage <= criticalThreshold);
+                const categoryLabel = category.charAt(0).toUpperCase() + category.slice(1);
+
+                if (anyLow) {
+                    if (!notifiedCategories.has(category)) {
+                        const lowestPercent = Math.min(...models.map(m => m.remainingPercentage));
+                        vscode.window.showWarningMessage(`🚀 Antigravity Alert: ${categoryLabel} models are at ${lowestPercent}% quota!`);
+                        notifiedCategories.add(category);
+                    }
+                } else {
+                    notifiedCategories.delete(category); // Reset if all models in category go back up
                 }
-            } else if (model.remainingPercentage > criticalThreshold) {
-                notifiedModels.delete(model.id); // Reset if it goes back up
             }
         }
     }
