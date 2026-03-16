@@ -2,6 +2,8 @@
 
 A local-only AI quota tracker built for [Antigravity](https://antigravity.google). It's a small project I've worked on to monitor model usage inside VS Code without sending data to external servers/doing shady stuff like other extensions for tracking model usage.
 
+[**GitHub Repository**](https://github.com/0libote/AntiGravity-Hub) | [**View Releases**](https://github.com/0libote/AntiGravity-Hub/releases)
+
 ## Features
 - **Dashboard**: Simple circular or line gauges to visualize remaining quota.
 - **Status Bar Integration**: Shows remaining quota in the VS Code status bar.
@@ -53,3 +55,9 @@ npm run compile
 # Package as a VSIX extension
 vsce package
 ```
+
+## Useful Links
+- [GitHub Repository](https://github.com/0libote/AntiGravity-Hub)
+- [Issue Tracker](https://github.com/0libote/AntiGravity-Hub/issues)
+- [Releases](https://github.com/0libote/AntiGravity-Hub/releases)
+
